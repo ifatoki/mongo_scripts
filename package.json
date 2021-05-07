@@ -1,0 +1,16 @@
+{
+  "name": "mongo_scripts",
+  "version": "1.0.0",
+  "description": "Base project for running custom mongo scripts",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^9.0.0",
+    "mongodb": "^3.6.6"
+  }
+}
