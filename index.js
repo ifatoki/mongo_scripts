@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const customScript = require(`./custom_scripts/${process.env.SCRIPT_NAME}`);
+
 async function main(){
   /**
    * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
@@ -18,7 +20,7 @@ async function main(){
     await client.connect();
 
     // Perform needed action
-    
+    await customScript(client);
   } catch (e) {
     console.error(e);
   } finally {
