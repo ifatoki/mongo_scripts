@@ -1,5 +1,5 @@
 module.exports = async function printDuplicateTechnicaluniqueIndexes (client) {
-  const db = client.db('meteor');
+  const db = client.db(`${process.env.DB_NAME}`);
   const Technical = db.collection('Technicals');
   const techs = await Technical.find({});
   const uniqueIndexes = {};
