@@ -1,0 +1,13 @@
+*** Local ***
+MONGO_URI=mongodb://localhost:3001
+DB_NAME=meteor
+
+*** Remote Dev ***
+
+*** Review ***
+
+*** Staging ***
+
+*** Production ***
+MONGO_URI=mongodb+srv://application:xeKP0AQhaXKUKG44@production-20201104.fifxc.mongodb.net/production?retryWrites=true&w=majority
+DB_NAME=production
