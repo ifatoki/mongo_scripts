@@ -1,0 +1,11 @@
+*** Local ***
+MONGO_URI=mongodb://localhost:3001
+DB_NAME=meteor
+
+*** Remote Dev ***
+
+*** Review ***
+
+*** Staging ***
+
+*** Production ***
