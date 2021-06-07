@@ -9,3 +9,20 @@ DB_NAME=meteor
 *** Staging ***
 
 *** Production ***
+
+
+{
+  "time": "2021-05-06T19:32:48.968Z",
+  "artworkId": "6FP7WycPNtXDogK82",
+  "latitude": 6.5244,
+  "longitude": 3.3792,
+  "temperature": 37.2,
+  "humidity": 90.3,
+  "airQuality": 132,
+  "airPressure": 205,
+  "highImpactAccelerometer": {
+    "x": 2.2313,
+    "y": 1.2345,
+    "z": 0.3255
+  }
+}
