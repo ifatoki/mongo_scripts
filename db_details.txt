@@ -1,6 +1,9 @@
 *** Local ***
 MONGO_URI=mongodb://localhost:3001
 DB_NAME=meteor
+*** Local Logs ***
+MONGO_URI=mongodb://localhost:3001
+DB_NAME=logs
 
 *** Remote Dev ***
 
@@ -10,6 +13,28 @@ DB_NAME=meteor
 
 *** Production ***
 
+*** Production Logs ***
+
+*** DEVELOPMENT ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:development:art:env-conditions"
+username="",
+password=""
+
+*** STAGING ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:staging:art:env-conditions"
+username="",
+password=""
+
+*** PRODUCTION ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:production:art:env-conditions"
+username="",
+password=""
 
 {
   "time": "2021-05-06T19:32:48.968Z",
