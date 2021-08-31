@@ -1,20 +1,58 @@
 *** Local ***
 MONGO_URI=mongodb://localhost:3001
 DB_NAME=meteor
+*** Local Logs ***
+MONGO_URI=mongodb://localhost:3001
+DB_NAME=logs
 
 *** Remote Dev ***
 MONGO_URI=mongodb+srv://application:m2zXg7c65UTHN1MI@dev.0evok.mongodb.net/dev?retryWrites=true&w=majority
 DB_NAME=dev
+*** Remote Dev Logs ***
+MONGO_URI=mongodb+srv://application:m2zXg7c65UTHN1MI@dev-log.0evok.mongodb.net/logs?retryWrites=true&w=majority
+DB_NAME=dev-log
 
 *** Review ***
-MONGO_URI=mongodb+srv://application:m2zXg7c65UTHN1MI@dev.0evok.mongodb.net/dev?retryWrites=true&w=majority
-DB_NAME=review
+MONGO_URI=mongodb+srv://application:m2zXg7c65UTHN1MI@dev.0evok.mongodb.net/review?retryWrites=true&w=majority
+DB_NAME=review-log
+*** Review ***
+MONGO_URI=mongodb+srv://application:m2zXg7c65UTHN1MI@dev-log.0evok.mongodb.net/review-logs?retryWrites=true&w=majority
+DB_NAME=review-logs
 
 *** Staging ***
+MONGO_URI=mongodb+srv://application:XpuHFFrdExKmj4sa@development.3nktk.mongodb.net/development?retryWrites=true&w=majority
+DB_NAME=development
+*** Staging Logs ***
+MONGO_URI=mongodb+srv://application:XpuHFFrdExKmj4sa@staging-log.3nktk.mongodb.net/logs?retryWrites=true&w=majority
+DB_NAME=staging-log
 
 *** Production ***
 MONGO_URI=mongodb+srv://application:xeKP0AQhaXKUKG44@production-20201104.fifxc.mongodb.net/production?retryWrites=true&w=majority
 DB_NAME=production
+*** Production Logs ***
+MONGO_URI=mongodb+srv://application:xeKP0AQhaXKUKG44@production-log.fifxc.mongodb.net/logs?retryWrites=true&w=majority
+DB_NAME=production-log
+
+*** DEVELOPMENT ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:development:art:env-conditions"
+username="jdPcJw.40f4Ow",
+password="TRAxob8fyfLMrEz2"
+
+*** STAGING ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:staging:art:env-conditions"
+username="jcjHmxg.UyVXqQ",
+password="OLQrXfB8CM6HohKq"
+
+*** PRODUCTION ***
+broker_ip="mqtt.ably.io",
+broker_port=8883,
+topic="authentify:production:art:env-conditions"
+username="mUzNGQ.cEbI-w",
+password="VIqJhNe2thryznSX"
 
 {
   "time": "2021-05-06T19:32:48.968Z",
