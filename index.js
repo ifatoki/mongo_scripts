@@ -13,7 +13,7 @@ async function main(){
   // const uri = "mongodb+srv://<username>:<password>@<your-cluster-url>/test?retryWrites=true&w=majority";
 
 
-  const client = new MongoClient(process.env.MONGO_URI);
+  const client = new MongoClient(process.env.MONGO_URI, { useUnifiedTopology: true });
 
   try {
     // Connect to the MongoDB cluster
