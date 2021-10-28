@@ -7,16 +7,14 @@ module.exports = async function mongoScript (client) {
 
   const db = client.db(`${process.env.DB_NAME}`);
   const EnvironmentalConditions = db.collection('EnvironmentalConditions');
-  const payloadIds = await EnvironmentalConditions.distinct('payloadId');
-  const bulkOp = EnvironmentalConditions.initializeUnorderedBulkOp();
+  const payloads = await EnvironmentalConditions.find({ type: "LOCATION", location: { $exists: false } }).toArray();
+  const promises = [];
   const cache = new Map();
   let count = 0;
 
-  const processPayload = async function (payloadId) {
-    const envWithLocation = await EnvironmentalConditions.findOne({ payloadId, type: 'LOCATION' })
-    
-    if (!envWithLocation) return;
-    const [latitude, longitude] = envWithLocation.value;
+  const processPayload = async function (payload) {
+    const { payloadId, value } = payload;
+    const [latitude, longitude] = value;
 
     try {
       let location = cache.get(`${latitude},${longitude}`);
@@ -37,7 +35,7 @@ module.exports = async function mongoScript (client) {
         }
       }
       if (location) {
-        bulkOp.find({ payloadId, location: { $exists: false } }).update({ $set: { location } });
+        promises.push(EnvironmentalConditions.updateMany({ payloadId }, { $set: { location } }));
         count++;
       }
     } catch (e) {
@@ -50,21 +48,37 @@ module.exports = async function mongoScript (client) {
     }
   }
 
-  for (let i = 0; i < payloadIds.length; i++) {
-    const payloadId = payloadIds[i];
+  for (let i = 0; i < payloads.length; i++) {
+    const payload = payloads[i];
 
-    if ((i + 1) % 100 === 0) console.log(`processing ${i + 1} of ${payloadIds.length} payloads.`);
-    await processPayload(payloadId);
+    if ((i + 1) % 100 === 0) console.log(`processing ${i + 1} of ${payloads.length} payloads.`);
+    await processPayload(payload);
   }
 
-  if (count === 0) {
-    console.log('no match found');
-    return;
-  }
-  const result = await bulkOp.execute();
+  // if (count === 0) {
+  //   console.log('no match found');
+  //   return;
+  // }
+  // const result = await bulkOp.execute();
 
-  if (result) {
-    const { nMatched, nModified } = result;
-    console.log(`${nMatched} items matched and ${nModified} items modified`);
-  }
+  // if (result) {
+  //   const { nMatched, nModified } = result;
+  //   console.log(`${nMatched} items matched and ${nModified} items modified`);
+  // }
+  const results = await Promise.allSettled(promises)
+  const result = results.reduce((cumm, updateResult) => {
+    if (updateResult.status === 'fulfilled') {
+      const { matchedCount = 0, modifiedCount = 0 } = updateResult.value;
+
+      cumm.nMatched += matchedCount;
+      cumm.nModified += modifiedCount;
+    }
+    return cumm;
+  }, {
+    nMatched: 0,
+    nModified: 0
+  });
+  const { nMatched, nModified } = result;
+
+  console.log(`${nMatched} items matched and ${nModified} items modified`);
 }
