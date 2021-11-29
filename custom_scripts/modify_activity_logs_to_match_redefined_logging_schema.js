@@ -13,9 +13,8 @@ const mongoScript = async function (client) {
       { address: { $exists: true } }
     ]
   })
-    .sort({ createdDate: -1 })
-    .toArray();
-  const logCount = activityLogs.length;
+    .sort({ createdDate: -1 });
+  const logCount = await activityLogs.count();
   const promises = [];
   const CHILD_OBJECTS = {
     tracker: 1010,
@@ -155,12 +154,13 @@ const mongoScript = async function (client) {
     }
   }
 
-  for (let i = 0; i < activityLogs.length; i++) {
-    const log = activityLogs[i];
+  let i = 0;
 
+  await activityLogs.forEach(log => {
     if ((i + 1) % 100 === 0) console.log(`processing ${i + 1} of ${logCount} logs.`);
     processLog(log);
-  }
+    i++;
+  });
 
   if (fromQueue.length > 0) {
     console.log(`${fromQueue.length} 'source' art transfer logs left unprocessed because no matching 'destination' logs. ${fromQueue.map(({ _id }) => _id)}`);
